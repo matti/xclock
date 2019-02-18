@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  app:
+    build: .
+    image: nopush-app
+    environment:
+      - PORT=8080
+    ports:
+      - 8080:8080

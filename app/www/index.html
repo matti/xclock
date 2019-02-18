@@ -1,0 +1,11 @@
+<img id="snapshot" src="snapshot.png">
+
+<script>
+  loadImage = () => {
+    setTimeout(() => {
+      snapshot.src = "snapshot.png?" + new Date().getTime();
+    }, 25)
+  }
+  snapshot.addEventListener("load", loadImage)
+  snapshot.addEventListener("error", loadImage)
+</script>
