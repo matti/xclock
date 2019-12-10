@@ -1,11 +1,11 @@
 version: '2.1'
 
 services:
-  xvfb:
-    image: mattipaksula/xvfb
-    ports:
-      - 5900:5900
   app:
     build: .
     image: mattipaksula/xclock
     network_mode: "service:xvfb"
+  xvfb:
+    image: mattipaksula/xvfb
+    ports:
+      - 5900:5900

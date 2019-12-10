@@ -16,6 +16,14 @@ _err() {
   exec xclock -update 1
 ) &
 
+(
+  while true; do
+    sec=$(date '+%S')
+    echo "value $sec" > /tmp/metrics
+    sleep 1
+  done
+) &
+
 echo "started"
 tail -f /dev/null &
 wait $!
