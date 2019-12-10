@@ -1,8 +1,9 @@
-FROM ubuntu:18.04
-
-ENV DEBIAN_FRONTEND=noninteractive
+FROM alpine:3.10
 ENV DISPLAY=:0
-RUN apt-get update && apt-get install -y xvfb imagemagick x11-apps busybox
+
+RUN apk add --no-cache \
+  bash \
+  xclock
 
 WORKDIR /app
 COPY app .

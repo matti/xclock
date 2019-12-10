@@ -1,4 +1,3 @@
 # xclock
 
-        docker-compose up
-        open http://localhost:8080
+        docker-compose up --build --force-recreate

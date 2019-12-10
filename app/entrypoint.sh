@@ -1,36 +1,21 @@
-#!/usr/bin/env sh
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-mkdir -p /app/tmp
+_term() {
+  >&2 echo "TERM"
+  exit 0
+}
+trap "_term" TERM
 
-Error() {
-  echo "$1 EXITED"
+_err() {
+  >&2 echo "err: $*"
   exit 1
 }
 
 (
-  Xvfb :0 -screen 0 1600x900x8 -fbdir /app/tmp; Error "Xvfb"
+  exec xclock -update 1
 ) &
 
-(
-  while true; do
-    ls -l /app/tmp
-    set +e
-      cp /app/tmp/Xvfb_screen0 /app/tmp/snapshot.xwd
-      convert /app/tmp/snapshot.xwd /app/www/snapshot_new.png
-      cp /app/www/snapshot_new.png /app/www/snapshot.png
-    set -e
-    echo "sleeping.."
-    sleep 1
-  done
-) &
-
-(
-  xclock -update 1; Error "xclock" &
-) &
-
-(
-  busybox httpd -p 0.0.0.0:$PORT -f -v -h /app/www
-) &
-
-tail -f /dev/null
+echo "started"
+tail -f /dev/null &
+wait $!
